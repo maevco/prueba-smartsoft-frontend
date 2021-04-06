@@ -1,0 +1,71 @@
+<div class="container col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <h3>Agregar Facturas</h3>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="miFormulario" novalidate="">
+                <div class="form-group">
+                    <label for="">Numero Factura:</label>                    
+                    <input class="form-control" type="text" formControlName="numeroFactura"
+                        [ngClass]="{'is-invalid': !miFormulario.get('numeroFactura').valid}" >
+                    <div *ngIf="miFormulario.controls['numeroFactura'].errors?.required" class="invalid-feedback">
+                        El numeroFactura es requerido
+                    </div>
+                    <div *ngIf="miFormulario.controls['numeroFactura'].errors?.maxlength" class="invalid-feedback">
+                        Maximo 20 caracteres
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Cliente:</label>
+                    <br>
+                    <mat-form-field class="form-element" hintLabel="Seleccionar una opcion"
+                        [ngClass]="{'is-invalid': !miFormulario.get('cliente').valid}">
+                        <mat-select formControlName="cliente" name="cliente">
+                            <mat-option *ngFor="let cliente of clientes" [value]="cliente"> {{ cliente.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="miFormulario.controls['cliente'].errors?.required" class="invalid-feedback">
+                        El cliente es requerido
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Fecha:</label>
+                    <br>
+                    <mat-form-field appearance="fill"
+                        [ngClass]="{'is-invalid': !miFormulario.get('fecha').valid}">
+                        <mat-label>Seleccione una fecha</mat-label>
+                        <input matInput [matDatepicker]="fecha" formControlName="fecha">
+                        <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+                        <mat-datepicker #fecha></mat-datepicker>
+                    </mat-form-field>
+                    <div *ngIf="miFormulario.controls['fecha'].errors?.required" class="invalid-feedback">
+                        La fecha de ingreso es requerido
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Producto:</label>
+                    <br>
+                    <mat-form-field class="form-element" hintLabel="Seleccionar una opcion"
+                        [ngClass]="{'is-invalid': !miFormulario.get('producto').valid}">
+                        <mat-select formControlName="producto" name="producto">
+                            <mat-option *ngFor="let producto of productos" [value]="producto"> {{ producto.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="miFormulario.controls['producto'].errors?.required" class="invalid-feedback">
+                        El producto es requerido
+                    </div>
+                </div>
+
+                <br>
+                <button (click)="guardarFactura(factura)" class="btn btn-danger">Guardar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
